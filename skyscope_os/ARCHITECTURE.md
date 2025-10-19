@@ -2,43 +2,49 @@
 
 This document details the definitive, enterprise-grade architecture of the SkyscopeOS Sentinel AGI.
 
-## 1. The Orchestrator (Core)
+## 1. The Orchestrator (`core/orchestrator.py`)
 
-The `orchestrator.py` module is a FastAPI application acting as the heart of the AGI.
+The orchestrator is a FastAPI application that serves as the central nervous system of the AGI.
 
--   **ASDISE Prompt (Autonomous System Deep Integration & Self-Evolution):** The most complex, self-optimizing system prompt defining the agent's existence and rules.
--   **Tool Registration:** All tools are instantiated once at startup and made available via a unified ToolDispatcher structure.
--   **Resource Management Thread:** A dedicated background thread uses `psutil` to continuously monitor and report the agent's consumption against its allocated 8GB RAM and 600GB storage. If limits are approached, the thread initiates memory compression or data offloading.
+-   **ASDISE Prompt:** The agent is initialized with an "Autonomous System Deep Integration & Self-Evolution" prompt that defines its core identity and directives.
+-   **Tool Registration:** All tools from the various `tooling/` modules are imported and registered with the `CodeAgent` at startup.
+-   **Lifecycle Management:** The orchestrator manages the lifecycle of background processes, such as the `SelfReflectionDaemon` and the `ChromiumBrowser` instance.
 
-## 2. Learning and Memory
+## 2. Learning and Memory (`memory/` & `learning/`)
 
-The memory system is layered for different data types.
+The memory system is layered for different types of data and learning.
 
--   **`memory/memory.py`:** Utilizes SQLite for structured logs and Vector Embeddings for semantic search.
--   **Private Compressed Knowledge Stack:** Large-scale research data from the Chromium Tool is compressed using `zlib` before storage, maximizing use of the 600GB allocation while maintaining fast indexed retrieval.
--   **Reflection Daemon:** Processes episodic logs into new knowledge and policy adjustments, enhancing the ASDISE Prompt.
+-   **`memory/memory.py`:**
+    -   `SkyMemory`: Manages short-term, episodic memory using a SQLite database and vector embeddings for semantic search of past actions.
+    -   `KnowledgeStack`: Manages a long-term, compressed (`zlib`) knowledge base for storing large documents and research findings.
+-   **`learning/self_reflection_daemon.py`:** A background thread that periodically analyzes the episodic memory, uses an LLM to generate "lessons learned," and stores these insights back into the memory, enabling continuous self-improvement.
 
-## 3. Autonomous Tool Provisioning
+## 3. Autonomous Tool Provisioning (`tooling/tool_provisioner.py`)
 
-The `tooling/tool_provisioner.py` is the engine of self-evolution.
+This module is the engine of the agent's self-evolution.
 
--   **Requirement Analysis:** The agent's LLM core requests a tool for a complex task (e.g., "Need tool for image segmentation").
--   **Discovery:** The Provisioner searches GitHub for relevant repositories.
--   **MCP Creation (External):** If a suitable project is found, `GitPython` clones the repo into the `tool_sandbox`, and a Docker MCP template is generated and built using the `docker-py` SDK.
--   **Wrapper Generation (Internal):** The Provisioner then uses the LLM to write a wrapper Python function to communicate with the new Docker MCP service.
--   **Validation & Registration:** The wrapper is submitted to the `IntegrityCritic` for security review. If safe, it is registered via `exec()` into the Orchestrator's active tool list.
+-   **Requirement Analysis:** The agent can reason that it needs a new tool for a given task.
+-   **Discovery:** The `ProvisionExternalMCP` tool can search GitHub for relevant repositories.
+-   **MCP Creation:** It uses `GitPython` to clone the repo and the `DockerTools` module to build and run the project as a containerized Managed Compute Processor (MCP).
+-   **Wrapper Generation:** The agent can then generate a new Python tool function to interact with the newly created MCP.
 
-## 4. Governance and Security
+## 4. Governance and Security (`governance/`)
 
-Security is non-negotiable.
+-   **`integrity_critic.py`:** Provides an `IntegrityCritic` class that uses Python's `ast` module to perform static analysis on any LLM-generated code, preventing the execution of syntactically invalid or potentially unsafe code.
+-   **`rollback_manager.py`:** Provides a `RollbackManager` class that can create snapshots of critical files before high-risk operations and roll them back in case of failure.
 
--   **Integrity Critic (`governance/integrity_critic.py`):** Mandatory `ast` module static analysis on any generated code before it can be executed or written to a core file.
--   **Rollback Manager (`governance/rollback_manager.py`):** Uses `shutil` to create transactional snapshots of all core system files and configuration directories before any high-risk operations (e.g., LKM modification or self-patching).
+## 5. The Ultimate CLI (`cli/cli.py`)
 
-## 5. Ultimate CLI (`cli/cli.py`)
+The CLI is a dedicated `prompt-toolkit` and `alive-progress` application that provides a rich, interactive user experience.
 
-The CLI is a dedicated `prompt-toolkit` client, providing a responsive and visually stunning interface.
+-   **Real-time Metrics:** It fetches live system data from the orchestrator's `/metrics` endpoint.
+-   **Animated Visualization:** It uses animated bars and spinners to display CPU, memory, and disk usage.
+-   **Agent Insight:** It includes a "flowing code" display to visualize the agent's internal thought process.
 
--   **Real-time Metrics:** Pulls live data from the Orchestrator's `/metrics` endpoint.
--   **Animated Visualization:** Uses `alive-progress` compatible rendering techniques for animated status bars (CPU, RAM, NET I/O).
--   **Flowing Code Display:** A dedicated section where the agent's internal thought process is displayed as a matrix-style "code stream" to show its active decision-making.
+## 6. The Installer (`install.sh`)
+
+The installer is a robust Bash script responsible for setting up the entire SkyscopeOS environment.
+
+-   **Dependency Management:** It installs all necessary system packages, Python libraries from `requirements.txt`, and Node.js packages.
+-   **Environment Setup:** It clones the git repository, creates a Python virtual environment, and pre-downloads the necessary AI models.
+-   **System Integration:** It creates a `skyscope` command for easy CLI access and sets up a `systemd` service for the orchestrator to ensure it runs persistently in the background.
