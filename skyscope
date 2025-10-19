@@ -1,49 +1,63 @@
 #!/usr/bin/env bash
 # ====================================================================
-# SkyScope Sentinel Intelligence Enterprise ASI AGI AI OS Installer
-# Fully autonomous, locally self-modifying intelligent OS orchestrator
-# Combines multi-agent AI, deep OS kernel integration,
-# advanced memory, workflow automation, browser control, and self-evolution
-# Developed by Miss Casey Jay Topojani — 2025 Ultra Edition
+# SkyScope Omniversal Orchestrator Installer
+# ====================================================================
+# Author: Miss Casey Jay Topojani | 2025 Ultimate Local AGI
+# Purpose:
+# - Fully self-contained AI orchestration framework
+# - Builds persistent vector + semantic memory internally
+# - Self-generating tools, agents, MCP servers, and workflows
+# - Supports browser automation, coding, OS configuration, n8n workflows
 # ====================================================================
 
 set -e
 
-echo "🔧 Updating system and installing dependencies..."
-sudo apt update -y
-sudo apt install -y python3 python3-pip python3-venv git curl jq ffmpeg sox vlc imagemagick chromium-driver nodejs npm build-essential unzip wget
+echo "🧭 Updating base system..."
+sudo apt update -y && sudo apt install -y python3 python3-pip python3-venv git sqlite3 curl jq ffmpeg \
+  sox vlc imagemagick chromium-driver nodejs npm unzip wget build-essential
 
-echo "🛠 Setting up SkyScope environment..."
-mkdir -p ~/.skyscope/{env,logs,memory,embeddings,agents,mcp,workflows,llm}
+# Directories
+mkdir -p ~/.skyscope_unified/{env,logs,memory,embeddings,agents,workflows,mcp,llm}
+python3 -m venv ~/.skyscope_unified/env
+source ~/.skyscope_unified/env/bin/activate
+pip install --upgrade pip wheel
 
-python3 -m venv ~/.skyscope/env
-source ~/.skyscope/env/bin/activate
-pip install --upgrade pip wheel setuptools
+# --- Install essential Python packages ---
+pip install torch torchvision torchaudio numpy pandas requests psutil fastapi uvicorn flask selenium helium \
+  sentence-transformers langchain langchain-core langgraph swarms evoagentx smolagents[toolkit] faiss-cpu \
+  alive-progress prompt_toolkit google-auth google-auth-oauthlib google-api-python-client pyyaml arxiv docker \
+  lief capstone uncompyle6 pyelftools radare2-py triton jinja2 playwright beautifulsoup4 moviepy gtts pyttsx3 \
+  whisper ffmpeg-python transformers tqdm gitpython psutil
 
-echo "📦 Installing Python AI and system orchestration packages..."
-pip install torch torchvision torchaudio numpy pandas psutil fastapi uvicorn flask selenium helium sentence-transformers faiss-cpu langchain langgraph evoagentx smolagents swarms sqlite-ai alive-progress prompt_toolkit google-auth google-auth-oauthlib google-api-python-client pyyaml requests arxiv docker lief capstone uncompyle6 pyelftools radare2-py triton jinja2 playwright beautifulsoup4 moviepy gtts pyttsx3 whisper ffmpeg-python transformers tqdm
-
-echo "📦 Installing n8n globally and starting with PM2..."
+# --- Setup n8n ---
 npm install -g n8n pm2
-pm2 start n8n --name skyscope-n8n
+pm2 start "n8n" --name skyscope-n8n
 pm2 save
 
-echo "🌐 Installing Ollama for local LLM inference..."
+echo "✅ n8n running at http://localhost:5678"
+
+# --- Install Ollama for LLM operations ---
 curl -fsSL https://ollama.com/install.sh | sh
 ollama pull smollm:135m
 ollama pull phi3:mini
 
 echo "🚀 Copying Python source files to environment..."
-cp skyscope_orchestrator.py ~/.skyscope/env/
-cp skyscope_cli.py ~/.skyscope/env/
-cp docker_mcp.py ~/.skyscope/env/
-cp cloud_integration.py ~/.skyscope/env/
+cp memory.py ~/.skyscope_unified/env/
+cp tools_os.py ~/.skyscope_unified/env/
+cp tools_web.py ~/.skyscope_unified/env/
+cp tools_cloud.py ~/.skyscope_unified/env/
+cp tools_docker.py ~/.skyscope_unified/env/
+cp tools_n8n.py ~/.skyscope_unified/env/
+cp tools_creative.py ~/.skyscope_unified/env/
+cp tools_macos.py ~/.skyscope_unified/env/
+cp orchestrator.py ~/.skyscope_unified/env/
+cp cli.py ~/.skyscope_unified/env/
 
 echo "🖥 Installing SkyScope Sentinel utility shortcut 'skyscope'..."
 cat > ~/bin/skyscope <<'EOF'
 #!/usr/bin/env bash
-source ~/.skyscope/env/bin/activate
-python3 ~/.skyscope/env/skyscope_cli.py
+source ~/.skyscope_unified/env/bin/activate
+python3 ~/.skyscope_unified/env/cli.py
 EOF
 chmod +x ~/bin/skyscope
 
@@ -52,78 +66,24 @@ if ! echo $PATH | grep -q "$HOME/bin"; then
   export PATH=$PATH:$HOME/bin
 fi
 
-echo "📦 Setting up LKM development environment..."
-mkdir -p ~/.skyscope/lkm
-cat > ~/.skyscope/lkm/hello.c <<'EOF'
-#include <linux/init.h>
-#include <linux/module.h>
-#include <linux/kernel.h>
-
-MODULE_LICENSE("GPL");
-MODULE_AUTHOR("SkyScope Sentinel");
-MODULE_DESCRIPTION("A simple example Linux module.");
-MODULE_VERSION("0.01");
-
-static int __init hello_init(void) {
-    printk(KERN_INFO "Hello from SkyScope Sentinel LKM!\n");
-    return 0;
-}
-
-static void __exit hello_exit(void) {
-    printk(KERN_INFO "Goodbye from SkyScope Sentinel LKM!\n");
-}
-
-module_init(hello_init);
-module_exit(hello_exit);
-EOF
-cat > ~/.skyscope/lkm/Makefile <<'EOF'
-obj-m += hello.o
-
-all:
-	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
-
-clean:
-	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
-EOF
-
-echo "⚙️ Setting up systemd service for persistence..."
-sudo bash -c 'cat > /etc/systemd/system/skyscope.service <<EOF
+# --- Systemd service setup ---
+sudo bash -c 'cat > /etc/systemd/system/skyscope-unified.service <<EOF
 [Unit]
-Description=SkyScope Sentinel AGI OS Orchestrator
+Description=SkyScope Unified AGI Core
 After=network.target
 
 [Service]
 User='$USER'
-ExecStart=/usr/bin/bash -c "source ~/.skyscope/env/bin/activate && python3 ~/.skyscope/env/skyscope_orchestrator.py"
+ExecStart=/usr/bin/bash -c "source ~/.skyscope_unified/env/bin/activate && python3 ~/.skyscope_unified/env/orchestrator.py"
 Restart=always
 
 [Install]
 WantedBy=multi-user.target
 EOF'
-sudo systemctl enable skyscope.service
-sudo systemctl start skyscope.service
 
-echo "⚙️ Setting up systemd service for Docker MCP..."
-sudo bash -c 'cat > /etc/systemd/system/skyscope-mcp.service <<EOF
-[Unit]
-Description=SkyScope Sentinel Docker MCP Service
-After=network.target
+sudo systemctl enable skyscope-unified.service
+sudo systemctl start skyscope-unified.service
 
-[Service]
-User='$USER'
-ExecStart=/usr/bin/bash -c "source ~/.skyscope/env/bin/activate && python3 ~/.skyscope/env/docker_mcp.py"
-Restart=always
-
-[Install]
-WantedBy=multi-user.target
-EOF'
-sudo systemctl enable skyscope-mcp.service
-sudo systemctl start skyscope-mcp.service
-
-echo "🎨 Rebranding OS to SkyScope Sentinel Intelligence Enterprise AGI OS..."
-sudo hostnamectl set-hostname skyscope-sentinel
-sudo echo "Welcome to SkyScope Sentinel Intelligence Enterprise AGI OS" > /etc/motd
-
-echo "✅ Installation complete."
+echo "🌌 SkyScope Unified installed and live."
+echo "🧠 API: curl -X POST http://localhost:8000/task -d '{\"task\":\"develop new memory summarization tool\"}' -H 'Content-Type: application/json'"
 echo "Run the command 'skyscope' in terminal to launch the AI OS agent CLI."
-echo "Or send tasks to http://localhost:8000/task for REST interaction."
