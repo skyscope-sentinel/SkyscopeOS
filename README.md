@@ -4,37 +4,53 @@
 SkyScope Sentinel is a revolutionary, fully autonomous, locally hosted AGI orchestration system designed to transform a standard Debian-based operating system into a first-of-its-kind self-aware, self-mutating AI OS. It integrates advanced AI agents, persistent multimodal episodic memory, dynamic tool creation, and sophisticated workflow orchestration, enabling deep system modifications, kernel patching, and proactive system management under human-in-the-loop governance.
 
 ## Features
-- **Fully Local and Autonomous:** Completely offline-capable with no external dependencies.
-- **Agentic Multi-Agent Teams:** Planner, developer, critic agents coordinate to self-optimize OS components.
+- **Fully Local and Autonomous:** Completely offline-capable with no external dependencies for core operation.
+- **Agentic Multi-Agent Teams:** Planner, developer, and critic agents coordinate to self-optimize OS components.
 - **Persistent Episodic & Vector Memory:** Self-built semantic memory for recall, learning, and reflection.
 - **Workflow Automation:** Integrated n8n visual automation engine with AI-generated workflows and agents.
 - **Browser Automation:** Multi-step automated browser control via Helium and Selenium.
-- **System Integration:** Deep OS-level management including kernel, sysctl, systemd, bootloader configuration and enhancement.
-- **Self-Mutating Code:** AI-driven self-reflective kernel module and driver patching, system configuration rewriting.
-- **Human-in-the-Loop:** Interactive oversight and secure intervention capabilities.
-- **Rebranding & Identity:** Fully renames and transforms the OS branding into the Skyscope Sentinel Intelligence Enterprise ASI AGI AI OS.
+- **Deep System Integration:** Tools for managing files, kernel modules, system services, and executing shell commands.
+- **Self-Mutating Code:** The agent can dynamically create new tools and modify its own source code, with safeguards in place.
+- **Cloud & Docker Integration:** Tools for interacting with Google Drive, Gmail, Arxiv, and Docker containers.
+- **Governance & Security:** Includes an Integrity Critic for static analysis of changes and a Rollback Manager for system snapshots.
+- **Human-in-the-Loop:** Interactive CLI for direct command and oversight.
 
 ## Installation
-1. Clone or download the SkyScope installer script.
-2. Run the script on a Debian-based Linux system with root privileges.
-3. The script sets up Python virtual environment, installs dependencies, pulls local LLM models, configures n8n and agent frameworks, and installs systemd services for persistent autonomy.
+1.  **Clone the Repository:**
+    ```bash
+    git clone https://github.com/skyscope-sentinel/SkyscopeOS.git
+    cd SkyscopeOS
+    ```
+2.  **Run the Installer:**
+    ```bash
+    chmod +x skyscope
+    ./skyscope
+    ```
+    The script will install all dependencies, set up the Python environment, download local LLM models, and configure the necessary `systemd` services.
 
 ## Usage
-- Interact with the system via the FastAPI REST endpoint for command execution and workflow provisioning.
-- Define tasks, automate OS and development activities, and manage multi-agent workflows and memory queries through API or CLI.
-- Supervise system changes via the human-in-the-loop prompts and logs stored persistently.
+-   **Interactive CLI:** The primary way to interact with the system is through the interactive CLI. Simply open a new terminal and run:
+    ```bash
+    skyscope
+    ```
+    This will launch a beautiful, futuristic interface where you can chat with the agent, monitor system metrics, and see a history of your interactions.
+
+-   **REST API:** The agent also exposes a RESTful API for programmatic interaction. You can send tasks to the agent by making a POST request to `http://localhost:8000/task`.
+    ```bash
+    curl -X POST http://localhost:8000/task -H "Content-Type: application/json" -d '{"task": "Summarize the latest research on autonomous agents from Arxiv."}'
+    ```
 
 ## Architecture
-SkyScope Sentinel combines advanced frameworks:
-- **SmolAgents, EvoAgentX, Swarms:** For multi-agent orchestration and reasoning.
-- **LangGraph and LangChain:** For workflow graphing and LLM interaction.
-- **SQLite + Sentence Transformers:** For building semantic episodic memory embedding.
-- **Ollama:** For local LLM inference optimized for low footprint.
-- **n8n:** For visual workflow automation and integration.
-- **Helium and Selenium:** For robust browser automation tasks.
+SkyScope Sentinel combines a suite of advanced open-source frameworks:
+- **Agent Frameworks:** `SmolAgents`, `EvoAgentX`, `Swarms` for multi-agent orchestration.
+- **LLM Inference:** `Ollama` for local, private LLM inference.
+- **Memory:** A custom `SkyMemory` module using `SQLite` and `Sentence Transformers` for persistent, semantic memory.
+- **Workflow Automation:** `n8n` for visual workflow creation and management.
+- **Web & Cloud:** `Helium`, `Selenium`, and Google API libraries for external service integration.
+- **CLI & API:** `prompt_toolkit`, `alive-progress`, and `FastAPI` for a modern user interface and robust API.
 
 ## Safety
-All kernel and system-level modifications include automatic backups and rollback mechanisms. The orchestrator requires human approval to perform critical actions, minimizing risk of system failure.
+All kernel and system-level modifications are designed to be used with caution. The `RollbackManager` can be used to create snapshots before performing critical actions. The agent's ability to modify its own code is restricted to its own directory for security. Human oversight via the CLI is the primary safety mechanism.
 
 ## Contributing
 This system is designed for extensibility. Contributions in AI-model improvements, memory algorithms, kernel enhancement modules, and workflow templates are welcome.
