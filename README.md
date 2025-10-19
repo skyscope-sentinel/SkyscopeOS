@@ -53,5 +53,16 @@ skyscopesentinel@gmail.com
 
 ## Donate
 
-## BTC
-bc1q7exdt2vgrgs6t2v3pzv5hr7hdcwd6mmrxzleq8
+Bitcoin/BTC: bc1q7exdt2vgrgs6t2v3pzv5hr7hdcwd6mmrxzleq8
+
+Ethereum/ETH: 0x46ddd6006acd7301c31871e953ac65c938d20799
+
+Binance/BNB: 0x46ddd6006acd7301c31871e953ac65c938d20799
+
+Solana/SOL: C9ijoRCVEct5aRwfXEWv2bT1ZBd3eU5xP6vFawXqqb8g
+
+Polygon/POL: 0x46ddd6006acd7301c31871e953ac65c938d20799
+
+Tron/TRX: TMmMChL3b3jiMh1eT1XTcQESwLMaUUV2s5
+
+USDT ERC20: 0x46ddd6006acd7301c31871e953ac65c938d20799
