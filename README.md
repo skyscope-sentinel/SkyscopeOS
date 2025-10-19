@@ -71,7 +71,7 @@ skyscopesentinel@gmail.com
 
 Bitcoin/BTC: bc1q7exdt2vgrgs6t2v3pzv5hr7hdcwd6mmrxzleq8
 
-Ethereum/ETH: 0x46ddd6006acd7301c31871e953ac65c938d20799
+Ethereum/ETH & EVM-compatible networks (BNB, POL, USDT ERC20): 0x46ddd6006acd7301c31871e953ac65c938d20799
 
 Binance/BNB: 0x46ddd6006acd7301c31871e953ac65c938d20799
 
