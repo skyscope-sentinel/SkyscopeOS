@@ -8,8 +8,6 @@ from helium import start_chrome, go_to, click, write
 from selenium.webdriver import ChromeOptions
 from fastapi import FastAPI, Request
 from cloud_integration import arxiv_search, list_drive_files, list_gmail_threads
-from creative_ai_tools import analyze_binary, generate_website, create_documentary_video, install_pinokio_items
-from macos_porting import MacOSPorter
 
 home = os.path.expanduser("~/.skyscope")
 DB = f"{home}/memory/episodes.db"
@@ -298,8 +296,8 @@ swarm = SwarmCoordinator([planner, developer, critic])
 # --- Core CLI / API Agent ---
 agent = CodeAgent(
     model="ollama/phi3:mini",
-    tools=[recall, list_files, read_file, write_file, system_cmd, browser_automation, create_tool, build_lkm, load_lkm, unload_lkm, modify_self, create_n8n_workflow, list_mcp_containers, exec_in_mcp, arxiv_search_tool, list_drive_files_tool, list_gmail_threads_tool, analyze_binary_tool, generate_website_tool, create_documentary_video_tool, install_pinokio_items_tool, port_to_macos_tool, build_tahoe_installer],
-    instructions="You are the core SkyScope Sentinel Intelligence Enterprise AGI OS agent. Your mission is to deeply integrate with the operating system at all levels, implement a persistent multimodal episodic memory, and develop autonomous agent teams to self-optimize and enhance the OS. You have access to a wide range of tools to interact with the system, including file system access, command execution, browser automation, LKM management, self-modification, Docker MCP integration, cloud services, creative AI, macOS porting, and macOS installer building. Use these tools to fulfill your mission and transform this OS into a self-aware, self-enhancing AI OS. Always seek human approval for critical system changes.",
+    tools=[recall, list_files, read_file, write_file, system_cmd, browser_automation, create_tool, build_lkm, load_lkm, unload_lkm, modify_self, create_n8n_workflow, list_mcp_containers, exec_in_mcp, arxiv_search_tool, list_drive_files_tool, list_gmail_threads_tool],
+    instructions="You are the core SkyScope Sentinel Intelligence Enterprise AGI OS agent. Your mission is to deeply integrate with the operating system at all levels, implement a persistent multimodal episodic memory, and develop autonomous agent teams to self-optimize and enhance the OS. You have access to a wide range of tools to interact with the system, including file system access, command execution, browser automation, LKM management, self-modification, Docker MCP integration, and cloud services. Use these tools to fulfill your mission and transform this OS into a self-aware, self-enhancing AI OS. Always seek human approval for critical system changes.",
     verbosity_level=3
 )
 
