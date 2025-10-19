@@ -15,6 +15,30 @@ SkyScope Sentinel is a revolutionary, fully autonomous, locally hosted AGI orche
 - **Governance & Security:** Includes an Integrity Critic for static analysis of changes and a Rollback Manager for system snapshots.
 - **Human-in-the-Loop:** Interactive CLI for direct command and oversight.
 
+## Pre Installation Setup
+1. **Install NodeJS/NVM/NPM
+   ```bash
+   # Download and install nvm:
+   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+
+   # in lieu of restarting the shell
+   \. "$HOME/.nvm/nvm.sh"
+
+   # Download and install Node.js:
+   nvm install 22
+
+   # Verify the Node.js version:
+   node -v # Should print "v22.20.0".
+
+   # Verify npm version:
+   npm -v # Should print "10.9.3".
+
+   # Refresh Terminal/CLI
+   source ~/.bashrc
+   ```
+
+Note: If your system uses zsh/zshrc do: source ~/.zshrc , please refer to your particular env for this equivalent eg. for fish or other.
+
 ## Installation
 1.  **Clone the Repository:**
     ```bash
