@@ -1,56 +1,41 @@
-# SkyScope Sentinel Intelligence Enterprise AGI OS
+# SkyScope Sentinel OS - The Ultimate AGI
 
 ## Overview
-SkyScope Sentinel is a revolutionary, fully autonomous, locally hosted AGI orchestration system designed to transform a standard Debian-based operating system into a first-of-its-kind self-aware, self-mutating AI OS. It integrates advanced AI agents, persistent multimodal episodic memory, dynamic tool creation, and sophisticated workflow orchestration, enabling deep system modifications, kernel patching, and proactive system management under human-in-the-loop governance.
+SkyScope Sentinel OS is a revolutionary, fully autonomous, locally hosted AGI orchestration system designed to transform a standard Debian-based operating system into a first-of-its-kind self-aware, self-mutating AI OS. It integrates a suite of advanced capabilities to create a single, cohesive, and incredibly powerful digital entity.
 
-## Features
-- **Fully Local and Autonomous:** Completely offline-capable with no external dependencies for core operation.
-- **Agentic Multi-Agent Teams:** Planner, developer, and critic agents coordinate to self-optimize OS components.
-- **Persistent Episodic & Vector Memory:** Self-built semantic memory for recall, learning, and reflection.
-- **Workflow Automation:** Integrated n8n visual automation engine with AI-generated workflows and agents.
-- **Browser Automation:** Multi-step automated browser control via Helium and Selenium.
-- **Deep System Integration:** Tools for managing files, kernel modules, system services, and executing shell commands.
-- **Self-Mutating Code:** The agent can dynamically create new tools and modify its own source code, with safeguards in place.
-- **Cloud & Docker Integration:** Tools for interacting with Google Drive, Gmail, Arxiv, and Docker containers.
-- **Governance & Security:** Includes an Integrity Critic for static analysis of changes and a Rollback Manager for system snapshots.
-- **Human-in-the-Loop:** Interactive CLI for direct command and oversight.
+## Core Features
+- **True Autonomy:** The agent is designed to be a self-sufficient entity, capable of learning, adapting, and evolving without constant human intervention.
+- **Deep System Integration:** The agent has the tools to interact with and modify its own environment, from the filesystem to the kernel.
+- **Self-Improvement:** The agent can autonomously create new tools and provision new capabilities from open-source repositories, allowing it to grow its own skillset over time.
+- **Advanced Creative & Technical Tools:** Includes tools for reverse engineering, website generation, video creation, and even cross-compiling code for macOS.
+- **Integrated Chromium Browser:** A dedicated, private browser instance for fast, reliable web research and data extraction.
+- **Persistent Memory & Knowledge:** A dual-layer memory system, with a short-term episodic memory for actions and a long-term, compressed Knowledge Stack for storing vast amounts of learned information.
+- **Enterprise-Grade CLI:** A beautiful, futuristic, and highly informative command-line interface that provides a rich user experience.
+- **100% Local and Private:** All core components, including the LLM, run locally, ensuring data privacy and offline capability.
 
 ## Installation
-1.  **Clone the Repository:**
+1.  **Prerequisites:** Ensure you have `git`, `docker`, and `python3` installed on your Debian-based system.
+2.  **Run the Installer:**
     ```bash
     git clone https://github.com/skyscope-sentinel/SkyscopeOS.git
     cd SkyscopeOS
+    chmod +x install.sh
+    ./install.sh
     ```
-2.  **Run the Installer:**
-    ```bash
-    chmod +x skyscope
-    ./skyscope
-    ```
-    The script will install all dependencies, set up the Python environment, download local LLM models, and configure the necessary `systemd` services.
+    The script will handle all dependencies, set up the Python environment, download local LLM models, and configure the necessary services for autonomous operation.
 
 ## Usage
--   **Interactive CLI:** The primary way to interact with the system is through the interactive CLI. Simply open a new terminal and run:
+-   **Start the Orchestrator:** The installer provides the command to start the orchestrator service in the background.
+-   **Interactive CLI:** The primary way to interact with the system is through the interactive CLI. After installation, open a new terminal (or run `source ~/.bashrc`) and run:
     ```bash
     skyscope
     ```
-    This will launch a beautiful, futuristic interface where you can chat with the agent, monitor system metrics, and see a history of your interactions.
+    This will launch the main interface, where you can chat with the agent and monitor its vital signs in real-time.
 
--   **REST API:** The agent also exposes a RESTful API for programmatic interaction. You can send tasks to the agent by making a POST request to `http://localhost:8000/task`.
-    ```bash
-    curl -X POST http://localhost:8000/task -H "Content-Type: application/json" -d '{"task": "Summarize the latest research on autonomous agents from Arxiv."}'
-    ```
+-   **REST API:** For programmatic interaction, the agent exposes a RESTful API. Send tasks via POST request to `http://localhost:8000/task`.
 
 ## Architecture
-SkyScope Sentinel combines a suite of advanced open-source frameworks:
-- **Agent Frameworks:** `SmolAgents`, `EvoAgentX`, `Swarms` for multi-agent orchestration.
-- **LLM Inference:** `Ollama` for local, private LLM inference.
-- **Memory:** A custom `SkyMemory` module using `SQLite` and `Sentence Transformers` for persistent, semantic memory.
-- **Workflow Automation:** `n8n` for visual workflow creation and management.
-- **Web & Cloud:** `Helium`, `Selenium`, and Google API libraries for external service integration.
-- **CLI & API:** `prompt_toolkit`, `alive-progress`, and `FastAPI` for a modern user interface and robust API.
+For a detailed breakdown of the system's architecture, please see `skyscope_os/ARCHITECTURE.md`.
 
 ## Safety
-All kernel and system-level modifications are designed to be used with caution. The `RollbackManager` can be used to create snapshots before performing critical actions. The agent's ability to modify its own code is restricted to its own directory for security. Human oversight via the CLI is the primary safety mechanism.
-
-## Contributing
-This system is designed for extensibility. Contributions in the form of new tools, improved agent instructions, and enhanced security features are welcome. Please open an issue or pull request on our GitHub repository.
+This is a highly advanced and experimental system. The agent has the ability to make significant changes to your system. While safeguards like the `IntegrityCritic` and `RollbackManager` are in place, human oversight is strongly recommended. Use at your own risk.

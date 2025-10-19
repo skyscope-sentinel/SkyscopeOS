@@ -9,7 +9,6 @@ from evoagentx import ReflexAgent
 from swarms import SwarmCoordinator
 
 # --- Add project root to Python path ---
-# This allows for clean, modular imports
 SKYSCOPE_ROOT = os.getenv("SKYSCOPE_ROOT", os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, SKYSCOPE_ROOT)
 
@@ -18,6 +17,8 @@ from memory.memory import SkyMemory, KnowledgeStack
 from tooling.chromium_tools import *
 from tooling.tool_provisioner import ToolProvisioner
 from tooling.docker_tools import DockerTools
+from tooling.tools_creative import *
+from tooling.tools_macos import *
 from governance.integrity_critic import IntegrityCritic
 from governance.rollback_manager import RollbackManager
 from learning.self_reflection_daemon import SelfReflectionDaemon
@@ -36,14 +37,15 @@ tool_provisioner = ToolProvisioner(
     sandbox_dir=f"{SKYSCOPE_ROOT}/tool_sandbox",
     critic=critic,
     docker_tools=docker_tools,
-    tool_builder=None # Placeholder for the dynamic tool builder
+    tool_builder=None
 )
 
 # --- Core Agent Definition ---
 all_tools = [
     web_navigate, web_click, web_fill, web_get_text, web_get_html,
     tool(tool_provisioner.ProvisionExternalMCP),
-    # ... other tools from other modules will be added here
+    analyze_binary, generate_website, create_documentary_video,
+    macos_clone_sources, macos_cross_compile, macos_sign_binary, build_tahoe_installer_placeholder
 ]
 
 enhanced_instructions = """
@@ -112,7 +114,6 @@ def get_metrics():
         "net_io": psutil.net_io_counters()._asdict()
     }
 
-# This is the main entry point for the uvicorn server
 if __name__ == "__main__":
     import uvicorn
     print("🚀 SkyScope Definitive Orchestrator is starting up...")
