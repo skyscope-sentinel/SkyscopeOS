@@ -53,4 +53,33 @@ SkyScope Sentinel combines a suite of advanced open-source frameworks:
 All kernel and system-level modifications are designed to be used with caution. The `RollbackManager` can be used to create snapshots before performing critical actions. The agent's ability to modify its own code is restricted to its own directory for security. Human oversight via the CLI is the primary safety mechanism.
 
 ## Contributing
-This system is designed for extensibility. Contributions in the form of new tools, improved agent instructions, and enhanced security features are welcome. Please open an issue or pull request on our GitHub repository.
+This system is designed for extensibility. Contributions in AI-model improvements, memory algorithms, kernel enhancement modules, and workflow templates are welcome.
+
+## License
+Open-source and free for research and educational use. Commercial deployment requires consultation.
+
+***
+
+SkyScope Sentinel is your gateway to the next generation of intelligent, autonomous, self-enhancing operating systems — pioneering AGI-driven system evolution for secure, perpetual digital intelligence.
+
+***
+
+Developer Miss Casey Jay Topojani
+skyscopesentinel@gmail.com
+
+## Donate
+
+**Security Notice**: Please verify all cryptocurrency addresses independently before sending donations. Always double-check addresses and use secure wallet practices.
+Bitcoin/BTC: bc1q7exdt2vgrgs6t2v3pzv5hr7hdcwd6mmrxzleq8
+
+Ethereum/ETH & EVM-compatible networks (BNB, POL, USDT ERC20): 0x46ddd6006acd7301c31871e953ac65c938d20799
+
+Binance/BNB: 0x46ddd6006acd7301c31871e953ac65c938d20799
+
+Solana/SOL: C9ijoRCVEct5aRwfXEWv2bT1ZBd3eU5xP6vFawXqqb8g
+
+Polygon/POL: 0x46ddd6006acd7301c31871e953ac65c938d20799
+
+Tron/TRX: TMmMChL3b3jiMh1eT1XTcQESwLMaUUV2s5
+
+USDT ERC20: 0x46ddd6006acd7301c31871e953ac65c938d20799
