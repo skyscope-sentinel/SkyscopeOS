@@ -69,6 +69,7 @@ skyscopesentinel@gmail.com
 
 ## Donate
 
+**Security Notice**: Please verify all cryptocurrency addresses independently before sending donations. Always double-check addresses and use secure wallet practices.
 Bitcoin/BTC: bc1q7exdt2vgrgs6t2v3pzv5hr7hdcwd6mmrxzleq8
 
 Ethereum/ETH & EVM-compatible networks (BNB, POL, USDT ERC20): 0x46ddd6006acd7301c31871e953ac65c938d20799
